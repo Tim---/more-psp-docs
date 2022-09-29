@@ -129,12 +129,12 @@ Refer to the "Xtensa Instruction Set Architecture (ISA) Reference Manual".
 4.  ❌ Thread Pointer Option
 5.  ✅ Processor ID Option
 6.  ✅ Debug Option
+
 | Parameter  | Value |
 | ---------- | ----- |
 | DEBUGLEVEL | ?     |
 | NIBREAK    | ?     |
 | NDBREAK    | ?     |
 | SZICOUNT   | ?     |
-
 7.  ❌ Trace Port Option
 
