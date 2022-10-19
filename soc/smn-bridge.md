@@ -1,12 +1,12 @@
 # SMN bridge
 
-The SMN bridge allows the PSP to map parts of the SMN space.
+The SMN bridge allows the PSP to map parts of the [SMN](../smn.md) address space.
 
 It allows to map 32 memory regions of 1MB that point to the SMN space.
 
-The SMN bridge exposes two register maps:
-  * 01000000-02ffffff: SMN bridge mappings (32 slots * 0x100000)
-  * 03220000-0322ffff: SMN bridge registers
+The SMN bridge exposes two regions:
+  * `01000000-02ffffff`: SMN bridge mappings (32 slots of 1MiB)
+  * `03220000-0322ffff`: SMN bridge registers
 
 ## Registers memory
 
@@ -20,6 +20,6 @@ Offset | Type      | Name  |
 
 The mapping `i` is controlled with the corresponding `slots[i]` register that contains the high 12 bits of the SMN address.
 
-Eg: writing `0x123` to the address `0x03220008` (`slots[4]`) will map the PSP addresses `01400000-014fffff` to SMN addresses `12300000-123fffff`. See the [SMN address space description](../smn.md).
+Eg: writing `0x123` to the address `0x03220008` (`slots[4]`) will map the PSP addresses `01400000-014fffff` to SMN addresses `12300000-123fffff`.
 
 Note that the PSP cannot write a single slot since it can only write 32-bits integer to the registers region. It will must write two slots at once (keeping the same value for the untouched slot).

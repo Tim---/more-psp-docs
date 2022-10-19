@@ -1,11 +1,8 @@
-# PSP internal registers
+# PSP sysregs
+
+Note: probably outdated ?
 
 The PSP registers are located in regions 03010000-0301ffff (public) and 03200000-0320ffff (private).
-
-The first range is accessible to the X86 processor, and probably the SMU while the second isn't.
-
-We postulate that both ranges point to the same register space because some mappings are similar.
-pspFor example, an interrupt related functions uses several u32[4] arrays at offsets 0x03010300, 0x03200310 and 0x03200320. 
 
 ## Register addresses
 

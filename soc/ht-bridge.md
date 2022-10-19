@@ -1,25 +1,25 @@
-# SysHub bridge
+# HT bridge
 
-The SysHub bridge allows the PSP to map parts of the X86 address space in its own address space.
+The HT bridge allows the PSP to map parts of the [HT](../ht.md) address space.
 
-It allows to map 15 memory regions of 64MB that point to the X86 space.
+It allows to map 15 memory regions of 64 MiB that point to the HT space.
 
-The SysHub bridge exposes two register maps:
-  * 03230000-0323ffff: SysHub bridge registers
-  * 04000000-3fffffff: SysHub bridge mappings (15 slots * 0x04000000)
+The HT bridge exposes two regions:
+  * `03230000-0323ffff`: HT bridge registers
+  * `04000000-3fffffff`: HT bridge mappings (15 slots of 64 MiB)
 
 ## Register table
 
 Offset | Type              | Name        |
 ------ | ----------------- | ----------- |
-0x0000 | syshub_slot[0x3e] | slots       |
+0x0000 | ht_slot[0x3e]     | slots       |
 0x03e0 | uint[0x3e]        | array_a     |
 0x04d8 | uint[0x3e]        | array_b     |
 0x05f0 | uint              | apply       |
 0x8000 | aes_key[4]        | aes_keys    |
 0x8040 | uint              | aes_related |
 
-Where the datatype `syshub_slot` is defined as follows:
+Where the datatype `ht_slot` is defined as follows:
 
 Offset | Type | Name   |
 ------ | ---- | ------ |
@@ -30,7 +30,7 @@ Offset | Type | Name   |
 
 ## Description
 
-The registers layout seems to indicate that 62 slots are available in the SysHub bridge, although only 15 are used by the PSP.
+The registers layout seems to indicate that 62 slots are available in the HT bridge, although only 15 are used by the PSP.
 
 The slot `i` is controlled via `slots[i]`, `array_a[i]`, `array_b[i]`.
 
@@ -41,7 +41,6 @@ When the slot is free'd, all the previous values are set to `0`.
 ### slots[i].addr
 
 Contains the high bits of the mapped address. It is shifted by 26 bits to get the base address.
-See the [SysHub address space description](../syshub.md).
 
 ### slots[i].status
 
