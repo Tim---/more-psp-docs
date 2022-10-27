@@ -74,3 +74,20 @@ The PSP configures the allowed levels using the write_bitmap and read_bitmap fie
 | ------- | ---- | ---- |
 | 0x004   | u32  | ???  |
 
+## Known nodes
+
+* 0x0a: smuio?
+* 0x18: nbcfg?
+* 0x1c: iommul2?
+* 0x30: fch?
+* 0x32: iommul1[0]?
+* 0x33: iommul1[1]?
+* 0x34: iommul1[2]?
+* 0x35: iommul1[3]?
+* 0x6c: gpp_bridge[0]
+* 0x6d: gpp_bridge[1]
+* 0x6e: gpp_bridge[2]
+* 0x96: umc[0]
+* 0x97: umc[1]
+* 0xb0: ccx[0]
+* 0xb1: ccx[1]
