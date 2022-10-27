@@ -2,9 +2,15 @@
 
 The SMN (System Management Network) bus is one of the two main buses of the Zen platform. Is it probably another name for the SCF (Scalable Control Fabric).
 
-Inside each CCX, the devices are assigned a static chunk of the SNM address space to configure them. 
+Each die of a Ryzen processor contains several internal devices (CCXs, UMCs, Northbridges, GPP bridges, IOMMU...). We will call them "SMN nodes".
 
-The SMN bus is a 36-bits bus. The first 4-bits are used to select the CCX. Each CCX owns a 32-bits chunk of memory.
+The SMN nodes are interconnected with the SMN bus. This allows the cores of the Ryzen processor (PSP, SMU, x86 cores...) to configure and monitor them.
+
+Each node has a unique "node id", and can expose one or more static regions to the SMN bus, to expose its configuration registers.
+
+SMN addresses inside a die are 32-bits, and all read/write operations are 4-bytes aligned.
+
+However, the full SMN address space is 36-bits: the first 4 bits are used to select the target die.
 
 ## Access to the SMN space
 
