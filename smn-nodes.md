@@ -13,6 +13,10 @@ Two regions are used to configure the nodes:
 | address         | type          | name          |
 | --------------- | ------------- | ------------- |
 | `0x008`         | u32           | enable?       |
+| `0x14c`         | u32[3]        | int_bitmap    |
+| `0x158`         | u32[3]        | int_cb        |
+| `0x164`         | u32[3]        | int_?         |
+| `0x188`         | u32           | int_ack       |
 | `0x810`         | u32           | frequency     |
 | `0x814`         | u32           | clock_enable? |
 | `0x82c`         | u32           | ?             |
@@ -67,6 +71,24 @@ The PSP configures the allowed levels using the write_bitmap and read_bitmap fie
 
 * write_bitmap format: 0x1*xx* where *xx* is a bitmap of initiatorTrusts allowed to write.
 * read_bitmap format: 0x2*xx* where *xx* is a bitmap of initiatorTrusts allowed to read
+
+### Interrupts
+
+The generic node implementation can generate interrupts.
+
+Each node can generate 16 interrupt "causes", and has 3 interrupt "callbacks".
+
+Configuring the interrupt callback `i` is done in the following way (by the SMU):
+
+* set a bitmap of interrupt causes in `int_bitmap[i]`
+* write zero in `int_?[i]`
+* write an SMN address in `int_cb[i]`.
+
+If the node generate interrupt cause `c`, it will check for each callback `i` if the bit `c` of `int_bitmap[i]` is set. If it's set, it will write its node address at the SMN address `int_cb[i]`. Then, it waits for the int handler to ack the interrupt by setting the bit `c` in `int_ack`.
+
+Format of the node address:
+* bits 16-21: subnode_id
+* bits 22-29: node_id
 
 ## Region B
 
